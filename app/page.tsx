@@ -20,21 +20,21 @@ export default async function Page() {
     : 0;
 
   return (
-    <main className="mx-auto max-w-6xl px-5 py-12">
-      <header className="mb-10">
-        <div className="flex items-center gap-2 text-sm font-medium text-brand">
-          <span className="inline-block h-2 w-2 rounded-full bg-brand" />
+    <main className="mx-auto max-w-6xl px-5 py-14 sm:py-20">
+      <header className="mb-12">
+        <div className="inline-flex items-center gap-2 rounded-full border border-hairline bg-surface-panel/60 px-3 py-1 text-sm font-medium text-brand">
+          <span className="inline-block h-2 w-2 rounded-full bg-brand shadow-[0_0_12px_2px_rgba(62,207,142,0.55)]" />
           Built on Supabase + Vercel
         </div>
-        <h1 className="mt-3 text-4xl font-semibold tracking-tight sm:text-5xl">
+        <h1 className="mt-5 text-4xl font-semibold tracking-tight text-white sm:text-6xl">
           AI-Builder Ecosystem Radar
         </h1>
-        <p className="mt-4 max-w-2xl text-lg text-neutral-300">
+        <p className="mt-5 max-w-2xl text-lg leading-relaxed text-ink-muted">
           A market-intelligence view of AI app builders, agentic IDEs, and
           vibe-coding platforms, scored by how deeply they integrate Supabase
           today and where the partnership opportunity is largest.
         </p>
-        <p className="mt-3 max-w-2xl text-sm text-neutral-500">
+        <p className="mt-3 max-w-2xl text-sm leading-relaxed text-ink-faint">
           Independent analysis by Daniel Ramírez, prepared for the Supabase
           Associate Partner Development Manager role. Integration status and
           opportunity scores reflect my own assessment as of June 2026, not
@@ -42,7 +42,7 @@ export default async function Page() {
         </p>
       </header>
 
-      <section className="mb-10 grid grid-cols-2 gap-3 sm:grid-cols-4">
+      <section className="mb-12 grid grid-cols-2 gap-3 sm:grid-cols-4">
         <Stat label="Tools tracked" value={String(tools.length)} />
         <Stat label="Native integrations" value={String(native)} />
         <Stat label="High-opportunity (80+)" value={String(highOpp)} />
@@ -51,7 +51,7 @@ export default async function Page() {
 
       <Radar tools={tools} />
 
-      <footer className="mt-16 border-t border-neutral-800 pt-6 text-sm text-neutral-500">
+      <footer className="mt-20 border-t border-hairline pt-6 text-sm text-ink-faint">
         <p>
           Data lives in Postgres on Supabase, served read-only through
           row-level security and the supabase-js client. Front end built with
@@ -59,11 +59,15 @@ export default async function Page() {
         </p>
         <p className="mt-2">
           By Daniel Ramírez ·{" "}
+          <a className="text-brand hover:underline" href="https://linkedin.com/in/ramo5">
+            linkedin.com/in/ramo5
+          </a>{" "}
+          ·{" "}
           <a
             className="text-brand hover:underline"
-            href="https://linkedin.com/in/ramo5"
+            href="https://github.com/ramotasaray/ai-builder-ecosystem-radar"
           >
-            linkedin.com/in/ramo5
+            source on GitHub
           </a>
         </p>
       </footer>
@@ -73,9 +77,9 @@ export default async function Page() {
 
 function Stat({ label, value }: { label: string; value: string }) {
   return (
-    <div className="rounded-xl border border-neutral-800 bg-neutral-900/50 p-4">
+    <div className="rounded-xl border border-hairline bg-surface-panel/70 p-4">
       <div className="text-3xl font-semibold text-brand">{value}</div>
-      <div className="mt-1 text-xs uppercase tracking-wide text-neutral-400">
+      <div className="mt-1 text-xs uppercase tracking-wide text-ink-faint">
         {label}
       </div>
     </div>

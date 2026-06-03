@@ -9,3 +9,23 @@
 html {
   scroll-behavior: smooth;
 }
+
+body {
+  background-color: #181818;
+  background-image: radial-gradient(
+    70% 55% at 50% -12%,
+    rgba(62, 207, 142, 0.12),
+    rgba(24, 24, 24, 0) 72%
+  );
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
+
+/* Subtle Supabase-style dot grid behind content */
+.dot-grid {
+  background-image: radial-gradient(rgba(255, 255, 255, 0.035) 1px, transparent 1px);
+  background-size: 22px 22px;
+  background-position: -1px -1px;
+  mask-image: linear-gradient(to bottom, black, transparent 85%);
+  -webkit-mask-image: linear-gradient(to bottom, black, transparent 85%);
+}

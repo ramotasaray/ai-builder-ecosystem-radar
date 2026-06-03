@@ -4,18 +4,18 @@ import { useMemo, useState } from "react";
 import type { Tool } from "@/lib/types";
 
 const STATUS_STYLES: Record<string, string> = {
-  Native: "bg-emerald-500/15 text-emerald-300 border-emerald-500/30",
-  "Template/Docs": "bg-teal-500/15 text-teal-300 border-teal-500/30",
-  MCP: "bg-indigo-500/15 text-indigo-300 border-indigo-500/30",
-  Community: "bg-amber-500/15 text-amber-300 border-amber-500/30",
-  "Low/None": "bg-neutral-500/15 text-neutral-300 border-neutral-500/30",
+  Native: "border-brand/40 bg-brand/10 text-brand",
+  "Template/Docs": "border-teal-400/30 bg-teal-400/10 text-teal-300",
+  MCP: "border-indigo-400/30 bg-indigo-400/10 text-indigo-300",
+  Community: "border-amber-400/30 bg-amber-400/10 text-amber-300",
+  "Low/None": "border-hairline bg-white/5 text-ink-muted",
 };
 
 function scoreColor(score: number) {
-  if (score >= 80) return "bg-emerald-400";
+  if (score >= 80) return "bg-brand";
   if (score >= 60) return "bg-teal-400";
   if (score >= 45) return "bg-amber-400";
-  return "bg-neutral-500";
+  return "bg-ink-faint";
 }
 
 export default function Radar({ tools }: { tools: Tool[] }) {
@@ -37,7 +37,7 @@ export default function Radar({ tools }: { tools: Tool[] }) {
 
   if (!tools.length) {
     return (
-      <p className="rounded-xl border border-neutral-800 bg-neutral-900/50 p-6 text-neutral-400">
+      <p className="rounded-xl border border-hairline bg-surface-panel/70 p-6 text-ink-muted">
         No data available right now. Check the Supabase connection.
       </p>
     );
@@ -53,24 +53,24 @@ export default function Radar({ tools }: { tools: Tool[] }) {
             className={`rounded-full border px-3 py-1 text-sm transition ${
               cat === c
                 ? "border-brand bg-brand/10 text-brand"
-                : "border-neutral-800 text-neutral-300 hover:border-neutral-600"
+                : "border-hairline text-ink-muted hover:border-hairline-strong hover:text-ink"
             }`}
           >
             {c}
           </button>
         ))}
-        <div className="ml-auto flex items-center gap-2 text-sm text-neutral-400">
+        <div className="ml-auto flex items-center gap-2 text-sm text-ink-faint">
           <span>Sort</span>
           <button
             onClick={() => setSortBy("score")}
-            className={sortBy === "score" ? "text-brand" : "hover:text-neutral-200"}
+            className={sortBy === "score" ? "text-brand" : "hover:text-ink"}
           >
             Opportunity
           </button>
-          <span className="text-neutral-700">/</span>
+          <span className="text-hairline-strong">/</span>
           <button
             onClick={() => setSortBy("name")}
-            className={sortBy === "name" ? "text-brand" : "hover:text-neutral-200"}
+            className={sortBy === "name" ? "text-brand" : "hover:text-ink"}
           >
             Name
           </button>
@@ -81,11 +81,11 @@ export default function Radar({ tools }: { tools: Tool[] }) {
         {visible.map((t) => (
           <article
             key={t.id}
-            className="flex flex-col rounded-xl border border-neutral-800 bg-neutral-900/50 p-5 transition hover:border-neutral-700"
+            className="flex flex-col rounded-xl border border-hairline bg-surface-panel/70 p-5 transition hover:border-hairline-strong hover:bg-surface-raised/70"
           >
             <div className="flex items-start justify-between gap-3">
               <div>
-                <h3 className="text-lg font-semibold">
+                <h3 className="text-lg font-semibold text-white">
                   {t.website ? (
                     <a
                       href={t.website}
@@ -99,14 +99,14 @@ export default function Radar({ tools }: { tools: Tool[] }) {
                     t.name
                   )}
                 </h3>
-                <p className="text-xs uppercase tracking-wide text-neutral-500">
+                <p className="text-xs uppercase tracking-wide text-ink-faint">
                   {t.category}
                 </p>
               </div>
               <span
                 className={`shrink-0 rounded-md border px-2 py-0.5 text-xs ${
                   STATUS_STYLES[t.integration_status] ??
-                  "border-neutral-700 text-neutral-300"
+                  "border-hairline text-ink-muted"
                 }`}
               >
                 {t.integration_status}
@@ -114,13 +114,11 @@ export default function Radar({ tools }: { tools: Tool[] }) {
             </div>
 
             <div className="mt-4">
-              <div className="flex items-center justify-between text-xs text-neutral-400">
+              <div className="flex items-center justify-between text-xs text-ink-muted">
                 <span>Partnership opportunity</span>
-                <span className="font-semibold text-neutral-200">
-                  {t.opportunity_score}
-                </span>
+                <span className="font-semibold text-ink">{t.opportunity_score}</span>
               </div>
-              <div className="mt-1 h-2 w-full overflow-hidden rounded-full bg-neutral-800">
+              <div className="mt-1 h-2 w-full overflow-hidden rounded-full bg-white/10">
                 <div
                   className={`h-full rounded-full ${scoreColor(t.opportunity_score)}`}
                   style={{ width: `${t.opportunity_score}%` }}
@@ -128,9 +126,11 @@ export default function Radar({ tools }: { tools: Tool[] }) {
               </div>
             </div>
 
-            <p className="mt-4 flex-1 text-sm text-neutral-300">{t.notes}</p>
-            <div className="mt-4 text-xs text-neutral-500">
-              Momentum: <span className="text-neutral-300">{t.momentum}</span>
+            <p className="mt-4 flex-1 text-sm leading-relaxed text-ink-muted">
+              {t.notes}
+            </p>
+            <div className="mt-4 text-xs text-ink-faint">
+              Momentum: <span className="text-ink">{t.momentum}</span>
             </div>
           </article>
         ))}
